@@ -5,13 +5,18 @@ Funcs:
     appendArray(Array* array, void* item) - adds the item to the end of the array. 
     insertArray(Array* array, void* item, int index) - inserts the item at the specified index. 
     popArray(Array* array, int index) - removes the item at the specified index, and returns it. 
-    removeArray(Array* array, int index) - like pop, but without returning the item. 
+    removeArray(Array* array, int index) - like pop, but without returning the item - does not free the memory the 
+        pointer was pointing to. 
     readArray(Array* array, int index) - returns the item at the specified index, without removing it. 
-    freeArray(Array* array) - free the array pointer - the array is destroyed by this, obviously. 
+    freeArray(Array* array) - free the array pointer - the array is destroyed by this, obviously - and so is
+        all data which the pointers in the array were pointing to. This is an "end of program" function. 
     ADD_ARRAY(type, name) - create a new set of functions to append items of type "type", with each function
         being named eg. readArrayname(), insertArrayname() etc. (for example:
             ADD_ARRAY(int, Int) will create a few functions, one of which is 
             appendArrayInt(Array* array, int item))
+
+            The removeArrayname() and popArrayname() functions will also free the memory which the respective pointer
+                was pointing to, as opposed to removeArray() and popArray() which is only manipulating the array itself. 
 
 Technical Funcs (only for specific use cases):
     resizeArray(Array* array, int newsize) - resize the array to newsize with no side effects, 

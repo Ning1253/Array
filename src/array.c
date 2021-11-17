@@ -111,6 +111,11 @@ void freeArray(Array* array) {
     // If the array exists, wipe it, free its data, free it. 
     // If not, do nothing. 
     if (array) {
+        // For each item in the array, free it, delete it. 
+        for (int i = 0; i < array->used; i++) {
+            free(array->data[i]);
+        }
+        
         array->used = 0;
         array->capacity = 0;
 
