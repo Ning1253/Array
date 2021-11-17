@@ -8,6 +8,10 @@ Funcs:
     removeArray(Array* array, int index) - like pop, but without returning the item. 
     readArray(Array* array, int index) - returns the item at the specified index, without removing it. 
     freeArray(Array* array) - free the array pointer - the array is destroyed by this, obviously. 
+    ADD_ARRAY(type, name) - create a new set of functions to append items of type "type", with each function
+        being named eg. readArrayname(), insertArrayname() etc. (for example:
+            ADD_ARRAY(int, Int) will create a few functions, one of which is 
+            appendArrayInt(Array* array, int item))
 
 Technical Funcs (only for specific use cases):
     resizeArray(Array* array, int newsize) - resize the array to newsize with no side effects, 
@@ -43,3 +47,34 @@ void* readArray(Array* array, int index);
 void freeArray(Array* array);
 
 int modIndex(Array* array, int index);
+
+#define ADD_ARRAY(type, name) \
+    void appendArray##name(Array* array, type item) { \
+        type* ptr = malloc(sizeof(type)); \
+        *ptr = item; \
+        appendArray(array, ptr); \
+    } \
+    \
+    void insertArray##name(Array* array, type item, int index) { \
+        type* ptr = malloc(sizeof(type)); \
+        *ptr = item; \
+        insertArray(array, ptr, index); \
+    } \
+    \
+    type popArray##name(Array* array, int index) { \
+        type* ptr = malloc(sizeof(type)); \
+        void* tofree = popArray(array, index); \
+        *ptr = *(type*)tofree; \
+        free(tofree); \
+        return *ptr; \
+    } \
+    \
+    void removeArray##name(Array* array, int index) { \
+        free(popArray(array, index)); \
+    } \
+    \
+    type readArray##name(Array* array, int index) { \
+        type* ptr = malloc(sizeof(type)); \
+        *ptr = *(type*)readArray(array, index); \
+        return *ptr; \
+    }
