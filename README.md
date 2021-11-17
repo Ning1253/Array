@@ -69,7 +69,7 @@ int main() {
     printf("%d ", readArrayInt(array, -1)); // Print the last item from the array. 
   }
   
-  // freeArray(Array* array); // Free the array and all of its data (coming soon)
+  freeArray(Array* array); // Free the array and all of its data
 }
 ```
 ```
