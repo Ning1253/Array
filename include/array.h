@@ -50,6 +50,7 @@ void removeArray(Array* array, int index);
 void* readArray(Array* array, int index);
 
 void freeArray(Array* array);
+void deleteArray(Array* array);
 
 int modIndex(Array* array, int index);
 

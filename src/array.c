@@ -9,6 +9,7 @@ Array* newArray() {
 
 void initArray(Array* array) {
     // Set all of the elements in the array to zero. 
+    free(array->data);
     array->used = 0;
     array->capacity = 0;
     array->data = NULL;
@@ -115,7 +116,7 @@ void freeArray(Array* array) {
         for (int i = 0; i < array->used; i++) {
             free(array->data[i]);
         }
-        
+
         array->used = 0;
         array->capacity = 0;
 
@@ -124,6 +125,12 @@ void freeArray(Array* array) {
         
         free(array);
     }
+}
+
+void deleteArray(Array* array) {
+    // Re-initialise, then free, to avoid loss of data. 
+    initArray(array);
+    freeArray(array);
 }
 
 int modIndex(Array* array, int index) {

@@ -34,7 +34,11 @@ This is achieved through copying the item as it is created, storing its pointer 
 
 #### `void freeArray(Array* array)`
 
-- Free the array itself. *(In the future [probably in a few days] this will also free each of the pointers within the array - the idea being that an array should only be freed once it has completely finished its usage. There already exists a way to remove specific items from the array without freeing them of course, so this is really something to be called at the end of the program to avoid memory leaks, and not for any other reason)*
+- Free the array itself, as well as all data which the pointers in it were pointing to. This is very much an "end of program" function, and running it before the end of the program will of course result in loss of the data, even if using the non-item specific functions. For the cases where the array is to be deleted or reset but not completely freed, use `initArray()`, which will free the array itself without freeing all of the data. 
+
+#### `void deleteArray(Array* array)`
+
+- Shorthand command which will run `initArray` then `freeArray`, to free and delete the array without loss of data. 
 
 ## Usage with non-pointer types
 
