@@ -8,8 +8,7 @@ Array* newArray() {
 }
 
 void initArray(Array* array) {
-    // Set all of the elements in the array to zero. 
-    free(array->data);
+    // Set all of the elements in the array to zero.
     array->used = 0;
     array->capacity = 0;
     array->data = NULL;
