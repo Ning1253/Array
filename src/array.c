@@ -94,7 +94,8 @@ void removeArray(Array* array, int index) {
         resizeArray(array, array->capacity / 2);
     } 
     else if (!array->used) {
-        // If it is empty, wipe it. 
+        // If it is empty, wipe it and free the current pointer. 
+        free(array->data);
         initArray(array);
     }
 }
