@@ -100,6 +100,11 @@ void removeArray(Array* array, int index) {
     }
 }
 
+void freeArray(Array* array, int index) {
+    // Pop an item, then free it. 
+    free(popArray(array, index));
+}
+
 void* readArray(Array* array, int index) {
     // Once again if the index is out of bounds, crash. 
     index = modIndex(array, index);
@@ -108,7 +113,7 @@ void* readArray(Array* array, int index) {
     return array->data[index];
 }
 
-void freeArray(Array* array) {
+void wipeArray(Array* array) {
     // If the array exists, wipe it, free its data, free it. 
     // If not, do nothing. 
     if (array) {
@@ -125,12 +130,6 @@ void freeArray(Array* array) {
         
         free(array);
     }
-}
-
-void deleteArray(Array* array) {
-    // Re-initialise, then free, to avoid loss of data. 
-    initArray(array);
-    freeArray(array);
 }
 
 int modIndex(Array* array, int index) {
