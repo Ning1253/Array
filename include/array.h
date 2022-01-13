@@ -2,13 +2,15 @@
 array.h - library header file for array.lib. 
 Funcs:
     newArray() - returns an array pointer to a newly created array struct. 
+    initArray(Array* array) - sets data values to {0, 0, NULL} (the default). 
     appendArray(Array* array, void* item) - adds the item to the end of the array. 
     insertArray(Array* array, void* item, int index) - inserts the item at the specified index. 
     popArray(Array* array, int index) - removes the item at the specified index, and returns it. 
     removeArray(Array* array, int index) - like pop, but without returning the item - does not free the memory the 
         pointer was pointing to. 
+    freeArray(Array* array, int index) - like remove array, but DOES free the memory the pointer was pointing to. 
     readArray(Array* array, int index) - returns the item at the specified index, without removing it. 
-    freeArray(Array* array) - free the array pointer - the array is destroyed by this, obviously - and so is
+    wipeArray(Array* array) - free the array pointer - the array is destroyed by this, obviously - and so is
         all data which the pointers in the array were pointing to. This is an "end of program" function. 
     ADD_ARRAY(type, name) - create a new set of functions to append items of type "type", with each function
         being named eg. readArrayname(), insertArrayname() etc. (for example:
@@ -25,7 +27,8 @@ Technical Funcs (only for specific use cases):
         array - if it isn't, the program will exit with an error. If it is, the function will
         return the index, making it a positive one if it was negative beforehand. 
 */
-#pragma once
+#ifndef c_array_h
+#define c_array_h
 
 #include <malloc.h>
 #include <stdbool.h>
@@ -47,10 +50,10 @@ void insertArray(Array* array, void* item, int index);
 
 void* popArray(Array* array, int index);
 void removeArray(Array* array, int index);
+void freeArray(Array* array, int index);
 void* readArray(Array* array, int index);
 
-void freeArray(Array* array);
-void deleteArray(Array* array);
+void wipeArray(Array* array);
 
 int modIndex(Array* array, int index);
 
@@ -84,3 +87,5 @@ int modIndex(Array* array, int index);
         *ptr = *(type*)readArray(array, index); \
         return *ptr; \
     }
+
+#endif
