@@ -8,6 +8,10 @@ This is achieved through copying the item as it is created, storing its pointer 
 
 - Creates a new Array struct and returns a pointer to it.
 
+#### `void initArray(Array* array)`
+
+- Wipes the Array struct, resetting it to its default state. 
+
 #### `void appendArray(Array* array, void* item)`
 
 - Appends the void pointer `item` to the end of the array. 
@@ -15,10 +19,6 @@ This is achieved through copying the item as it is created, storing its pointer 
 #### `void insertArray(Array* array, void* item, int index)`
 
 - Inserts the void pointer `item` at the given index, shifting all following items along by one. 
-
-#### `void* readArray(Array* array, int index)`
-
-- Returns the pointer at the given index of the array. 
 
 #### `void* popArray(Array* array, int index)`
 
@@ -28,17 +28,17 @@ This is achieved through copying the item as it is created, storing its pointer 
 
 - Removes the item at the given index from the array. 
 
-#### `void initArray(Array* array)`
+#### `void freeArray(Array* array, int index`
 
-- Reset the array to its initial state. 
+- Removes the item at the given index from the array, and frees the data that it is pointing to. 
 
-#### `void freeArray(Array* array)`
+#### `void* readArray(Array* array, int index)`
+
+- Returns the pointer at the given index of the array. 
+
+#### `void wipeArray(Array* array)`
 
 - Free the array itself, as well as all data which the pointers in it were pointing to. This is very much an "end of program" function, and running it before the end of the program will of course result in loss of the data, even if using the non-item specific functions. For the cases where the array is to be deleted or reset but not completely freed, use `initArray()`, which will free the array itself without freeing all of the data. 
-
-#### `void deleteArray(Array* array)`
-
-- Shorthand command which will run `initArray` then `freeArray`, to free and delete the array without loss of data. 
 
 ## Usage with non-pointer types
 
